@@ -1,11 +1,10 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
+title:  "generator探幽(1)--compose函数"
 date:   2015-05-01 23:27:26
 categories: jekyll update
 ---
-#generator探幽
-本文旨在通过对compose，co，koa等库源码的研究,进而理解generator在异步编程中的重大作用
+#本系列旨在通过对compose，co，koa等库源码的研究,进而理解generator在异步编程中的重大作用
 
 ##compose
 [compose](http://https://github.com/koajs/compose)库只用了几十行代码，就实现了koa中间件的机制  
