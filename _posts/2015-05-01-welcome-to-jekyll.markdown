@@ -4,22 +4,37 @@ title:  "Welcome to Jekyll!"
 date:   2015-05-01 23:27:26
 categories: jekyll update
 ---
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
+#generator探幽
+本文旨在通过对compose，co，koa等库源码的研究,进而理解generator在异步编程中的重大作用
 
-To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
-
-Jekyll also offers powerful support for code snippets:
-
-{% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
-{% endhighlight %}
-
-Check out the [Jekyll docs][jekyll] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll’s dedicated Help repository][jekyll-help].
-
-[jekyll]:      http://jekyllrb.com
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-help]: https://github.com/jekyll/jekyll-help
+##compose
+[compose](http://https://github.com/koajs/compose)库只用了几十行代码，就实现了koa中间件的机制  
+可以看我的compose.js，我在它的源码上做了些说明  
+compose函数最关键的一段代码    
+```
+while(i--){
+    next = middleware[i].call(this, next);
+}
+yield *next;
+```
+这段代码把middleware中传进来的generator数组逆序取出并依次执行，每次执行的时候把上次generator执行返回的iterator当作参数传进去，所有generator执行完之后，调用第一个iterator  
+因此，在generator中间件函数中，其实yield后面跟的是个iterator，即```yield* next```
+下面用一个例子来说明这个过程  
+```
+var middleware = [];
+var arr = []; 
+middleware.push(function* m1(next){
+    arr.push(1);
+    yield* next; //位置1
+    arr.push(3);
+});
+middleware.push(function* m2(next){
+    arr.push(1);
+    arr.push(2);
+});
+var gen = compose(middleware); //将middleware中的两个generator'组合'成一个新的generator函数
+var it = gen();
+it.next(); //执行后会停在m1函数的位置1处
+it.next(); //执行后从m1函数暂停处进入m2函数，执行完整个m2函数后再次回到m1函数继续执行剩下的部分
+console.log(arr); //[1,2,3,4]
+```
