@@ -2,6 +2,7 @@
 layout: post
 title:  "generator探幽(1)--compose函数"
 date:   2015-05-02 17:21:26
+categories: posts
 ---
 #本系列旨在通过对compose，co，koa等库源码的研究,进而理解generator在异步编程中的重大作用
 
