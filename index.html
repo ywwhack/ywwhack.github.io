@@ -13,21 +13,6 @@ layout: default
   </article>
   {% endfor %}
   <ul class="posts">
-    <!-- <li class="listing-seperator">Yesterday you said tomorrow</li> -->
-  {% capture month %}{{ site.time | date:"%m"}}{% endcapture %}
-  {% for post in site.posts %}
-    {% capture m %}{{ post.date | date:"%m"}}{% endcapture %}
-    {% if cancelPageTitle == post.title %}
-    {% break %}
-    {% endif %}
-    {% if month != m %}
-    {% break %}
-    {% endif %}
-    <li class="listing-item">
-      <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-      <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-    </li>
-  {% endfor %}
-    <li class="listing-seperator"><a href="/archive/">Long ago</a></li>
+    <li class="listing-seperator"><a href="/archive/">more</a></li>
   </ul>
 </div>
