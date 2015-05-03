@@ -1,21 +1,20 @@
 ---
 layout: post
 title:  "generator探幽(1)--compose函数"
-date:   2015-05-02 17:21:26
-categories: posts
+category: generator
+tags: javascript
 ---
 #本系列旨在通过对compose，co，koa等库源码的研究,进而理解generator在异步编程中的重大作用
 
 ##compose
 [compose](http://https://github.com/koajs/compose)库只用了几十行代码，就实现了koa中间件的机制  
 可以看我的compose.js，我在它的源码上做了些说明  
-compose函数最关键的一段代码    
+compose函数最关键的一段代码 
 
     while(i--){
         next = middleware[i].call(this, next);
     }
     yield *next;
-
 这段代码把middleware中传进来的generator数组逆序取出并依次执行，每次执行的时候把上次generator执行返回的iterator当作参数传进去，所有generator执行完之后，调用第一个iterator  
 因此，在generator中间件函数中，其实yield后面跟的是个iterator，即```yield* next```
 下面用一个例子来说明这个过程  
