@@ -16,7 +16,7 @@ redcarpet:
   comments :
     provider : duoshuo
     duoshuo :
-      short_name : taizilongxu
+      short_name : 叶伟伟
 
 navigations:
   - title: Archive

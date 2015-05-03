@@ -4,11 +4,11 @@ title:  "generator探幽(1)--compose函数"
 category: generator
 tags: javascript
 ---
-#本系列旨在通过对compose，co，koa等库源码的研究,进而理解generator在异步编程中的重大作用
+###本系列旨在通过对compose，co，koa等库源码的研究,进而理解generator在异步编程中的重大作用
 
-##compose
+#compose
 [compose](http://https://github.com/koajs/compose)库只用了几十行代码，就实现了koa中间件的机制  
-可以看我的compose.js，我在它的源码上做了些说明  
+可以看我的[deep-into-generator](https://github.com/ywwhack/deep-into-generator/blob/master/compose.js)中的compose.js，我在它的源码上做了些说明  
 compose函数最关键的一段代码 
 
     while(i--){
