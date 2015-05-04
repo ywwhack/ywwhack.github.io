@@ -24,11 +24,11 @@ compose函数最关键的一段代码
     middleware.push(function* m1(next){
         arr.push(1);
         yield* next; //位置1
-        arr.push(3);
+        arr.push(4);
     });
     middleware.push(function* m2(next){
-        arr.push(1);
         arr.push(2);
+        arr.push(3);
     });
     var gen = compose(middleware); //将middleware中的两个generator'组合'成一个新的generator函数
     var it = gen();
