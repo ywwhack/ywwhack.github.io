@@ -133,6 +133,10 @@ a:visited { color: #7C7C7C; }
     color: #A8A8A8;
 }
 
+.footer-col-2 a:hover{
+    color: #dd1144;
+}
+
 .site-footer ul { list-style: none; }
 
 .site-footer li,
